@@ -57,7 +57,10 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]
 WantedBy=multi-user.target
 ```
-
+CTRL + O untuk save file konfigurasi dan reload
+```Shell
+sudo systemctl daemon-reload
+```
 
 
 
