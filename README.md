@@ -171,10 +171,10 @@ sudo systemctl enable --now blackbox-exporter.service
 sudo systemctl status blackbox-exporter.service
 ```
 
-** Pastikan status blackbox-exporter.service Active dan Running**
+**Pastikan status blackbox-exporter.service Active dan Running**
 
 
-![Blackbox](images/blackbox.png)
+![Blackbox](images/bb.png)
 
 ## KONFIGURASI PROMETHEUS
 
