@@ -298,15 +298,26 @@ Gunakan IP yang muncul dan paste di browser
 ### Add Data Source
 1. Masuk Ke menu Connection > Data Source > Add New data Source > Prometheus
 2. Isi Prometheus URL Server
+   
    ```url
    http://localhost:9090
    ```
+   
+![Datasrc](images/datasource.png)
+
 3. Save & Test
 
 
 ### SET UP DASHBOARD VISUALISASI
 1. Masuk ke menu Dashboard > New Dashboard > Add Visualization > Data Source : Prometheus
 2. Pilih Code
+3. Add sampai 3 Query
+4. Pada masing masing Query, masuk ke menu Options > Legend > Custom > Contoh : Avg to 8.8.8.8
+5. Run Queries
+6. Save Dashboard
+
+![1](images/1.png)
+
 
 
 #### Average RTT (Query 1)
@@ -322,6 +333,19 @@ min_over_time(probe_duration_seconds{instance="8.8.8.8"}[30s]) * 1000
 max_over_time(probe_duration_seconds{instance="8.8.8.8"}[30s]) * 1000
 ```
 
+![1](images/ping.png)
+
+
+### TEMPLATE DASHBOARD
+
+1. Masuk ke menu Dashboard > New > Import
+2. Masukkan ID 14857
+3. Klik Load
+4. Select data source (Prometheus)
+5. Import
+6. Done
+
+![Db](images/Dashboard.png)
 
 
 
