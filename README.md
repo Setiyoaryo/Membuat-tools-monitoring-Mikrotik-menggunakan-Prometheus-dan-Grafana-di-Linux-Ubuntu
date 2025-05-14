@@ -254,7 +254,7 @@ RosV7
 
 ## Install Grafana
 
-### Install the prerequisite packages:
+### Install the prerequisite packages
 ```Shell
 sudo apt-get install -y apt-transport-https software-properties-common wget
 ```
@@ -279,6 +279,49 @@ sudo apt-get update
 ```Shell
 sudo apt-get install grafana
 ```
+### Cek Port yang digunakan Grafana
+```Shell
+sudo lsof -n -i | grep LISTEN
+```
+![Port](images/port.png)
+
+```Shell
+hostname -i
+```
+Gunakan IP yang muncul dan paste di browser
+- Contoh : 127.0.0.1:3000
+- username : admin
+- password : admin
+
+## SET UP GRAFANA
+
+### Add Data Source
+1. Masuk Ke menu Connection > Data Source > Add New data Source > Prometheus
+2. Isi Prometheus URL Server
+   ```url
+   http://localhost:9090
+   ```
+3. Save & Test
+
+
+### SET UP DASHBOARD VISUALISASI
+1. Masuk ke menu Dashboard > New Dashboard > Add Visualization > Data Source : Prometheus
+2. Pilih Code
+
+
+#### Average RTT (Query 1)
+```Promql
+avg_over_time(probe_duration_seconds{instance="8.8.8.8"}[30s]) * 1000
+```
+#### Minimal RTT (Query 2)
+```Promql
+min_over_time(probe_duration_seconds{instance="8.8.8.8"}[30s]) * 1000
+```
+#### Max RTT (Query 3)
+```Promql
+max_over_time(probe_duration_seconds{instance="8.8.8.8"}[30s]) * 1000
+```
+
 
 
 
