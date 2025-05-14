@@ -71,6 +71,9 @@ sudo systemctl enable --now prometheus.service
 ```Shell
 sudo systemctl status prometheus.service
 ```
+**Pastikan status prometheus.service Active dan Running**
+
+![Prometheus](images/prometheus.png)
 
 ## SNMP-EXPORTER
 
@@ -116,6 +119,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now snmp-exporter.service
 sudo systemctl status snmp-exporter.service
 ```
+**Pastikan status snmp-exporter.service Active dan Running**
+
+![snmp-exporter](images/snmp-service.png)
+
 
 ## BLACKBOX-EXPORTER
 
@@ -163,13 +170,18 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now blackbox-exporter.service
 sudo systemctl status blackbox-exporter.service
 ```
-### Tambahkan Job di prometheus.yml untuk snmp exporter dan blackbox exporter
-```Shell
-sudo nano /etc/prometheus/prometheus.yml
-```
+
+** Pastikan status blackbox-exporter.service Active dan Running**
+
+
+![Blackbox](images/blackbox.png)
+
 ## KONFIGURASI PROMETHEUS
 
 ### Konfigurasi prometheus.yml
+```Shell
+sudo nano /etc/prometheus/prometheus.yml
+```
 Hapus konfigurasi bawaan prometheus.yml dan ganti dengan versi dibawah ini
 ```yml
 global:
@@ -224,7 +236,20 @@ sudo systemctl restart prometheus.service
 ## MIKROTIK
 
 ### Aktifkan SNMP di perangkat Mikrotik
+Jika digunakan di router produksi, tidak disarankan menggunakan community public (Security Risk)
 
+RosV6
+```Shell
+/snmp set enabled=yes trap-version=3
+/snmp community add name=public read-access=yes
+```
+RosV7
+```Shell
+/snmp/set enabled=yes trap-version=3
+/snmp/community/add name=public read-access=yes
+```
+![IP](images/Ip.png)
+![IP](images/snmp.png)
 
 
 ## Install Grafana
@@ -254,12 +279,6 @@ sudo apt-get update
 ```Shell
 sudo apt-get install grafana
 ```
-
-
-
-
-
-
 
 
 
