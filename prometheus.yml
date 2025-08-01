@@ -1,0 +1,42 @@
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: 'mikrotik-snmp'
+    static_configs:
+      - targets:
+        - 192.168.100.1  # Di isi IP Address Mikrotik
+        - x.x.x.x # Tambahkan jika lebih dari 1 perangkat Mikrotik (hapus jika tidak perlu)
+    metrics_path: /snmp
+    params:
+      auth: [public_v2]
+      module: [mikrotik]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9116
+
+  - job_name: 'ping-google'
+    scrape_interval: 5s
+    scrape_timeout: 4s
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+        - 8.8.8.8 # Bebas di isi ke IP manapun (berfungsi untuk memonitoring ping ke host tujuan)
+        - 1.1.1.1 # Target 2 (tambahkan di bawahnya jika perlu)
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115 
